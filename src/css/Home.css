@@ -1,0 +1,62 @@
+.home {
+    height: fit-content;
+    width: 70vw;
+    padding: 10vh 0 10vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    border: 5px solid dimgray;
+    border-radius: 15px;
+}
+
+.title {
+    text-align: center;
+    border-bottom: 4px solid #801100;
+    padding-bottom: 2vh;
+    width: 50vw;
+    font-size: 5vh;
+    color: #801100;
+}
+
+.input::placeholder, .roomBtn, .input {
+    color: coral;
+}
+
+.input, .roomBtn {
+    height: 8vh;
+    border: 0;
+    border-radius: 5px;
+}
+
+.input {
+    background-color: dimgray;
+    font-size: larger;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    width: 47vw;
+}
+
+.roomBtn {
+    width: 30vw;
+    line-height: 8vh;
+    text-align: center;
+    background-color: #801100;
+    font-size: xx-large;
+    text-decoration: none;
+}
+
+#top {
+    margin-top: 5vh;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input:hover, .roomBtn:hover {
+    transform: translate(4px, -4px);
+    box-shadow: -5px 5px 0px 0px darkgray;
+}
+
