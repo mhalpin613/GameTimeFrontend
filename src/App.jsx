@@ -1,7 +1,7 @@
-import './css/App.css'
+import './App.css'
 import { Routes, Route } from 'react-router-dom';
-import { Home } from './components/Home';
-import { ChatRoom } from './components/ChatRoom';
+import { Home } from './pages/Home/Home';
+import { GameRoom } from './pages/Game/components/GameRoom';
 import { useState } from 'react';
 
 export const App = () => {
@@ -22,7 +22,7 @@ export const App = () => {
 
       <Route 
         exact path="/game/:roomId" 
-        element={<ChatRoom userName={userName} roomName={roomName}/>} />
+        element={<GameRoom userName={userName} roomName={roomName}/>} />
 
     </Routes>
 

@@ -1,0 +1,42 @@
+.videoContainer {
+    width: 100%;
+    display: flex;
+    margin-top: 2vh;
+}
+
+.video {
+    height: 20vh;
+    max-width: 35vw;
+    border-radius: 15px;
+}
+
+.videos {
+    display: flex;
+    gap: 5vw;
+    margin-left: auto;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+    margin-right: 5vw;
+    margin-left: 24vw;
+}
+
+.call, .end {
+    width: max-content;
+    height: 5vh;
+    padding: 0 2vw 0 2vw;
+    border-radius: 15px;
+    background-color: #fac000;
+    border-radius: 10px;
+    border: none;
+    font-size: medium;
+}
+
+.call:hover, .end:hover {
+    transform: translate(4px, -4px);
+    box-shadow: -5px 5px 0px 0px dimgray;
+}

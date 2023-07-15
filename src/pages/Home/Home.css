@@ -13,11 +13,11 @@
 
 .title {
     text-align: center;
-    border-bottom: 4px solid #801100;
+    border-bottom: 4px solid dimgray;
     padding-bottom: 2vh;
     width: 50vw;
     font-size: 5vh;
-    color: #801100;
+    color: dimgray;
 }
 
 .input::placeholder, .roomBtn, .input {
@@ -27,7 +27,7 @@
 .input, .roomBtn {
     height: 8vh;
     border: 0;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .input {
@@ -39,11 +39,12 @@
 }
 
 .roomBtn {
-    width: 30vw;
+    width: 25vw;
     line-height: 8vh;
     text-align: center;
-    background-color: #801100;
-    font-size: xx-large;
+    background-color: #fac000;
+    color: dimgray;
+    font-size: x-large;
     text-decoration: none;
 }
 
@@ -55,8 +56,13 @@
     outline: none;
 }
 
-.input:hover, .roomBtn:hover {
+.input:hover {
     transform: translate(4px, -4px);
-    box-shadow: -5px 5px 0px 0px darkgray;
+    box-shadow: -5px 5px 0px 0px #fac000;
+}
+
+.roomBtn:hover {
+    transform: translate(4px, -4px);
+    box-shadow: -5px 5px 0px 0px dimgray;
 }
 
