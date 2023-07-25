@@ -1,10 +1,9 @@
 .chatContainer {
+    height: 100%;
+    width: 37vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    width: 42vw;
-    max-width: 37vw;
 }
 
 .chatBox {
@@ -79,7 +78,8 @@
 
 .type::placeholder {
     color: coral;
-    font-size: medium;
+    font-size: large;
+    font-weight: 700;
 }
 
 .type:focus {
@@ -105,6 +105,4 @@
     width: fit-content;
     padding: 0 2vw 0 2vw;
     height: 5vh;
-    margin-top: auto;
-    margin-bottom: auto;
 }

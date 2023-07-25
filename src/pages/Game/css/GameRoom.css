@@ -2,29 +2,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 .gameContainer {
+    max-height: 700px;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2vh;
 }
 
 .game {
-    border: 4px solid dimgray;
-    border-radius: 15px;
-    height: 45vw;
-    width: 45vw;
-    margin-bottom: 10vh;
+    height: 40vw;
+    width: 40vw;
+    max-height: 700px;
+    max-width: 700px;    
 }
 
 .bottom {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
-    height: 78vh;
+    height: fit-content;
     width: 100%;
 }

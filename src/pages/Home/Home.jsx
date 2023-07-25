@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SHA3 } from 'crypto-js'
 import { socket } from '../../connection/socketio';
+import { toast } from 'react-hot-toast';
 
 export const Home = (props) => {
 
@@ -25,18 +26,18 @@ export const Home = (props) => {
     useEffect(() => {
 
         socket.on('room-not-found', () => {
-            setErrorMessage('Room not found');
+            toast('Room not found');
         });
 
         socket.on('room-full', () => {
-            setErrorMessage('Room is already full');
+            toast('Room is already full');
         });
 
         socket.on('room-already-exists', () => {
-            setErrorMessage('Room already exists');
+            toast('Room already exists');
         });
 
-        socket.on('user-joined', (data) => {
+        socket.on('joined', (data) => {
             const { userName, roomName } = data;
             console.log(`User ${userName} joined the room`);
             navigate(`/game/${SHA3(roomName)}`);
@@ -63,7 +64,7 @@ export const Home = (props) => {
             socket.emit('create-game', { userName, roomName });
 
         } else {
-            setErrorMessage('Please enter a userName and room name');
+            toast('Please enter a userName and room name');
         }
     };
 
@@ -73,7 +74,7 @@ export const Home = (props) => {
             socket.emit('join-game', { userName, roomName });
 
         } else {
-            setErrorMessage('Please enter a username and room ID');
+            toast('Please enter a username and room ID');
         }
     };
 
@@ -100,15 +101,12 @@ export const Home = (props) => {
             />
 
             <button className='roomBtn' id='top' onClick={createGame}>
-                Create Room
+                Create
             </button>
 
             <button className='roomBtn' onClick={joinGame}>
                 Join
             </button>
-
-            <br />
-            {errorMessage && <p>{errorMessage}</p>}
 
         </div>
 

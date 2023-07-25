@@ -1,42 +1,45 @@
 .videoContainer {
     width: 100%;
     display: flex;
+    align-items: center;
     margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
-.video {
+.video, .opp-video {
     height: 20vh;
     max-width: 35vw;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .videos {
     display: flex;
-    gap: 5vw;
-    margin-left: auto;
+    width: 100%;
+    justify-content: space-evenly;
 }
 
-.btns {
+.info {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 2vh;
-    margin-right: 5vw;
-    margin-left: 24vw;
+    justify-content: center;
+    gap: 1vh;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.call, .end {
-    width: max-content;
-    height: 5vh;
-    padding: 0 2vw 0 2vw;
+.btn {
+    font-size: medium;
+    height: fit-content;
+    padding: 10px;
     border-radius: 15px;
     background-color: #fac000;
-    border-radius: 10px;
     border: none;
-    font-size: medium;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.call:hover, .end:hover {
+.btn:hover {
     transform: translate(4px, -4px);
     box-shadow: -5px 5px 0px 0px dimgray;
 }

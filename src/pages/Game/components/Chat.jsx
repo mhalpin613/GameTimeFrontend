@@ -107,7 +107,7 @@ export const Chat = (props) => {
                 onClick={leaveGame}
                 className='leaveGame'
             >
-                Leave Game
+                <h3>Leave Game</h3>
             </button>
 
         </div>
