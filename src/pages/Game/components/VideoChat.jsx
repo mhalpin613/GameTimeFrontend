@@ -3,8 +3,6 @@ import { socket } from '../../../connection/socketio'
 import Peer from 'simple-peer';
 import '../css/VideoChat.css';
 
-// todo end call (leave and disconnect)
-
 export const VideoChat = (props) => {
 
     const [stream, setStream] = useState();
@@ -16,6 +14,7 @@ export const VideoChat = (props) => {
 
     const userVid = useRef();
     const oppVid = useRef();
+    const peerRef = useRef();
 
     useEffect(() => { 
         console.log(props.oppUserName) 
@@ -31,7 +30,7 @@ export const VideoChat = (props) => {
             })
 
             .catch(err => console.log(err));
-        // todo not ringing
+
         socket.on('ringing', (data) => {
             setGettingCall(true);
             setCaller(data.from);
@@ -40,6 +39,24 @@ export const VideoChat = (props) => {
         });
 
     }, []);
+
+    useEffect(() => {
+
+        socket.on('end-call', () => {
+
+            if (peerRef.current) peerRef.current.destroy();
+
+            setStream(null);
+            setGettingCall(false);
+            setCaller('');
+            setCallerSignal(null);
+            setCalling(false);
+            setCallAccepted(false);
+        });
+
+        return () => socket.off('end-call');
+
+    });
 
     const call = () => {
 
@@ -59,14 +76,15 @@ export const VideoChat = (props) => {
         peer.on('stream', stream => {
             console.log('adding video')
             if (oppVid.current) oppVid.current.srcObject = stream;
-        })
+        });
 
-        // todo not getting call accepted
         socket.on('call-accepted', signal => {
             setCallAccepted(true);
             console.log('i accepted')
             peer.signal(signal)
         });
+
+        peerRef.current = peer;
     }
 
     const acceptCall = () => {
@@ -90,9 +108,10 @@ export const VideoChat = (props) => {
             oppVid.current.srcObject = stream;
         });
 
-        // problem?
         console.log('signalling ' + callerSignal)
         peer.signal(callerSignal);
+
+        peerRef.current = peer;
     }
 
     let view;
@@ -165,12 +184,6 @@ export const VideoChat = (props) => {
                 </video>
 
                 {view}
-
-                {callAccepted && <button className="btn" onClick={() => 2}>
-
-                                    <h3>End call</h3>
-
-                                 </button>}
 
             </div>
 

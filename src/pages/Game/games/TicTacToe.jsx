@@ -6,16 +6,13 @@ import { VscDebugRestart } from 'react-icons/vsc';
 
 export const TicTacToe = (props) => {
 
-    const { userName, roomName, oppUserName, oppId } = props;
+    const { userName, oppUserName, oppId } = props;
 
     const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
     const [turn, setTurn] = useState(null);
     const [goFirst, setGoFirst] = useState(null);
     const [winner, setWinner] = useState('');
     const [moves, setMoves] = useState(0);
-    const [tie, setTie] = useState(false);
-
-    // todo restart, tie, win
 
     useEffect(() => {
 
@@ -40,12 +37,9 @@ export const TicTacToe = (props) => {
 
         socket.on('board-state', data => {
             console.log(data)
-            setBoard(data.board);
+            setBoard(data);
             setMoves(moves + 1);
             setTurn(!turn);
-            setWinner(data.winner);
-
-            if (moves === 8 && winner === '') setTie(true);
         });
 
         return () => socket.off('board-state');
@@ -54,28 +48,26 @@ export const TicTacToe = (props) => {
 
     useEffect(() => {
 
-        if (tie) toast('tie');
-
-    });
-
-    useEffect(() => {
-
-        socket.emit('update', { board, oppId, winner });
-
-        return () => socket.off('update');
+        socket.emit('give-winner', { oppId, winner });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [winner]);
 
     useEffect(() => {
 
+        socket.on('winner', winner => setWinner(winner));
+
+        return () => socket.off('winner');
+    });
+
+    useEffect(() => {
+
         socket.on('handle-restart', () => {
-            console.log('restarted')
-            setTie(false);
+            console.log('restarted');
             setWinner('');
             setMoves(0);
             setBoard(['','','','','','','','','']);
-            goFirst ? setTurn(true) : setTurn(false);
+            setTurn(goFirst);
         });
 
         return () => socket.off('handle-restart');
@@ -83,11 +75,11 @@ export const TicTacToe = (props) => {
 
     const move = (i) => () => {
 
-        if (winner === '' || tie) {
+        if (winner === '' && moves < 9) {
 
             if (board[i] !== '') {
-            toast('spot taken!');
-            return
+                toast('spot taken!');
+                return
             }
 
             if (!turn) {
@@ -98,14 +90,11 @@ export const TicTacToe = (props) => {
             board[i] = (goFirst ? 'X' : 'O');
             setTurn(!turn);
             setMoves(moves + 1);
-            console.log(moves);
 
             checkWin();
-            console.log(winner)
 
-            socket.emit('update', { board, oppId, winner });
-
-            if (moves === 9 && winner === '') setTie(true);
+            // todo err
+            socket.emit('update', { board, oppId });
         }
 
         else toast('game is over!');
@@ -140,12 +129,24 @@ export const TicTacToe = (props) => {
 
     const restart = () => {
         console.log('restarting')
-        setTie(false);
         setWinner('');
         setMoves(0);
         setBoard(['','','','','','','','','']);
-        goFirst ? setTurn(true) : setTurn(false);
+        setTurn(goFirst);
         socket.emit('restart', oppId);
+    }
+
+    const conclusion = () => {
+
+        if (oppId.length > 0) {
+
+            if (moves >= 9) return 'Game ended in tie'
+
+            else {
+                return winner !== '' ? `Winner: ${winner}` : 
+                        `${turn ? userName : oppUserName} is up`;
+            }
+        }
     }
 
     return (
@@ -172,8 +173,7 @@ export const TicTacToe = (props) => {
             </div>
 
             <div className='turn'>
-                {oppId.length > 0 && (winner !== '' ? `Winner: ${winner}` : 
-                        `${turn ? userName : oppUserName} is up`)}
+                {conclusion()}
             </div>
 
         </div>
