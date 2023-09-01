@@ -1,5 +1,5 @@
 import './Home.css'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SHA3 } from 'crypto-js'
 import { socket } from '../../connection/socketio';
@@ -12,8 +12,6 @@ export const Home = (props) => {
     const { user, room } = props;
     const { userName, setUserName } = user;
     const { roomName, setRoomName } = room;
-
-    const [errorMessage, setErrorMessage] = useState('');
 
     const handleRoomChange = (e) => {
         setRoomName(e.target.value);

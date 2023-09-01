@@ -5,7 +5,6 @@ import { GameRoom } from './pages/Game/components/GameRoom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { socket } from './connection/socketio'
-import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
 

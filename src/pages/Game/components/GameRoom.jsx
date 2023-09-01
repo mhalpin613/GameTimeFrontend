@@ -22,7 +22,7 @@ export const GameRoom = (props) => {
 
         <div className="container">
 
-            <VideoChat className='top' oppUserName={oppUserName} oppId={oppId}/>
+            {/*<VideoChat className='top' oppUserName={oppUserName} oppId={oppId}/>*/}
 
             <div className='bottom'>
 
